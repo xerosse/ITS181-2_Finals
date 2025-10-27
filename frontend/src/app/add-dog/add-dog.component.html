@@ -1,0 +1,26 @@
+<h2>Add Dog</h2>
+
+<form #dogForm="ngForm" (ngSubmit)="submit()">
+    Name: <input type="text" id="name" name="name" [(ngModel)]="dog.name" required/>
+    <br>
+    Image/s: <input type="file" id="image_paths" name="image_paths" [(ngModel)]="dog.image_paths" required/>
+    <br>
+    Age: <input type="number" id="age" name="age" [(ngModel)]="dog.age" required/>
+    <br>
+    Sex: <input type="text" id="sex" name="sex" [(ngModel)]="dog.sex" required/>
+    <br>
+    Breed: <input type="text" id="breed" name="breed" [(ngModel)]="dog.breed" required/>
+    <br>
+    Size: <input type="text" id="size" name="size" [(ngModel)]="dog.size" required/>
+    <br>
+    Weight: <input type="number" id="weight" name="weight" [(ngModel)]="dog.weight" required/>
+    <br>
+    Status: <input type="text" id="status" name="status" [(ngModel)]="dog.status"/>
+    <br>
+    Date of Arrival: <input type="date" id="arrived_date" name="arrived_date" [(ngModel)]="dog.arrived_date"/>
+    <br>
+    Description: <input type="text" id="description" name="description" [(ngModel)]="dog.description"/>
+    <br><br>
+    <button type="button" (click)="back()">Back</button>
+    <button type="submit">Submit</button>
+</form>
