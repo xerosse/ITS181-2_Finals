@@ -30,6 +30,8 @@ public class Dog {
     private LocalDate adopted_date;
     private String description;
 
+    public Dog(){}
+
     public Dog(String name, List<String> image_paths, double age, String sex, String breed, String size, double weight, String status, LocalDate arrived_date, String description) {
         this.name = name;
         this.image_paths = image_paths;
