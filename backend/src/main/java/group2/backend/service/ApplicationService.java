@@ -18,7 +18,7 @@ public class ApplicationService implements IApplicationService{
     }
 
     public Application getApplication(long id) {
-        Optional optional=repository.findById(id);
+        Optional<Application> optional=repository.findById(id);
         if (optional.isEmpty()) {
             return null;
         }

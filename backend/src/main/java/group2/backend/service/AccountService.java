@@ -18,7 +18,7 @@ public class AccountService implements IAccountService{
     }
 
     public Account getAccount(long id) {
-        Optional optional=repository.findById(id);
+        Optional<Account> optional=repository.findById(id);
         if (optional.isEmpty()) {
             return null;
         }

@@ -18,7 +18,7 @@ public class DogService implements IDogService{
     }
 
     public Dog getDog(long id) {
-        Optional optional=repository.findById(id);
+        Optional<Dog> optional=repository.findById(id);
         if (optional.isEmpty()) {
             return null;
         }
