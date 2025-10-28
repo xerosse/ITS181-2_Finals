@@ -21,16 +21,38 @@ public class Dog {
     private List<String> image_paths;
 
     private double age;
-    private String sex;
+    @Enumerated(EnumType.STRING)
+    private Sex sex;
     private String breed;
-    private String size;
+    @Enumerated(EnumType.STRING)
+    private Size size;
     private double weight;
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
     private LocalDate arrived_date;
     private LocalDate adopted_date;
     private String description;
 
-    public Dog(String name, List<String> image_paths, double age, String sex, String breed, String size, double weight, String status, LocalDate arrived_date, String description) {
+    // TODO: Expand Enums if we need it :P
+    public static enum Sex {
+        M,
+        F
+    }
+
+    public static enum Size {
+        SMALL,
+        MEDIUM,
+        LARGE
+    }
+
+    public static enum Status {
+        ADOPTED,
+        AVAILABLE
+    }
+
+    public Dog(){}
+
+    public Dog(String name, List<String> image_paths, double age, Sex sex, String breed, Size size, double weight, Status status, LocalDate arrived_date, String description) {
         this.name = name;
         this.image_paths = image_paths;
         this.age = age;
@@ -76,11 +98,11 @@ public class Dog {
         this.age = age;
     }
 
-    public String getSex() {
+    public Sex getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(Sex sex) {
         this.sex = sex;
     }
 
@@ -92,11 +114,11 @@ public class Dog {
         this.breed = breed;
     }
 
-    public String getSize() {
+    public Size getSize() {
         return size;
     }
 
-    public void setSize(String size) {
+    public void setSize(Size size) {
         this.size = size;
     }
 
@@ -108,11 +130,11 @@ public class Dog {
         this.weight = weight;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
