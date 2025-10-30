@@ -6,11 +6,15 @@ import { AppComponent } from './app.component';
 import { AddDogComponent } from './add-dog/add-dog.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AddDogComponent
+    AddDogComponent,
+    AboutUsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
