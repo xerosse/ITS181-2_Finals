@@ -1,0 +1,272 @@
+.adopt-page {
+  min-height: 100vh;
+  background: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hero Section */
+.hero-section {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../../assets/puppy-1047521_1280.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 80px 40px;
+  text-align: center;
+  color: white;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(23, 193, 212, 0.7) 0%, rgba(0, 188, 212, 0.7) 100%);
+  z-index: 1;
+}
+
+.hero-section h1 {
+  font-size: 4rem;
+  font-weight: 700;
+  margin: 0;
+  color: white;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+  position: relative;
+  z-index: 2;
+}
+
+/* Main Container */
+.adopt-container {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 0;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Sidebar Filters */
+.filters-sidebar {
+  background: #ffa726;
+  padding: 30px 20px;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.search-box {
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 2px solid #333;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 15px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.search-btn {
+  width: 100%;
+  background: #00bcd4;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.search-btn:hover {
+  background: #00acc1;
+}
+
+.filter-section {
+  background: transparent;
+}
+
+.filter-title {
+  color: #00bcd4;
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.filter-group {
+  margin-bottom: 20px;
+}
+
+.filter-group label {
+  display: block;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.filter-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  background: white;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.reset-btn {
+  width: 100%;
+  background: #ff6b35;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+  box-sizing: border-box;
+}
+
+.reset-btn:hover {
+  background: #ff5722;
+}
+
+/* Dogs Content */
+.dogs-content {
+  background: #00bcd4;
+  padding: 40px;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.content-header {
+  margin-bottom: 30px;
+}
+
+.content-header h2 {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Dogs Grid */
+.dogs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+  padding-bottom: 20px;
+}
+
+.dog-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.dog-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.dog-image {
+  width: 100%;
+  height: 250px;
+  background: linear-gradient(45deg, #e0e0e0 25%, transparent 25%, transparent 75%, #e0e0e0 75%, #e0e0e0),
+              linear-gradient(45deg, #e0e0e0 25%, transparent 25%, transparent 75%, #e0e0e0 75%, #e0e0e0);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.dog-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dog-info {
+  padding: 20px;
+  text-align: center;
+}
+
+.dog-name {
+  color: #00bcd4;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.dog-details {
+  color: #666;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: white;
+  font-size: 1.2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .adopt-container {
+    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .filters-sidebar {
+    height: auto;
+    overflow-y: visible;
+  }
+  
+  .dogs-content {
+    height: auto;
+    min-height: 400px;
+  }
+  
+  .dogs-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 50px 20px;
+  }
+  
+  .hero-section h1 {
+    font-size: 2.5rem;
+  }
+  
+  .dogs-content {
+    padding: 20px;
+  }
+  
+  .dogs-grid {
+    grid-template-columns: 1fr;
+  }
+}

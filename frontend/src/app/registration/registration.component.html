@@ -1,0 +1,126 @@
+<div class="registration-page">
+  <div class="registration-container">
+    <!-- Left Side - Image -->
+    <div class="registration-image">
+      <img src="assets/puppy-1047521_1280.jpg" alt="Cute puppy">
+    </div>
+    
+    <!-- Right Side - Registration Form -->
+    <div class="registration-form-container">
+      <div class="registration-form">
+        <h2>Create Account 🐾</h2>
+        <p class="welcome-text">Join us in giving dogs a loving home!</p>
+        
+        <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
+          <!-- Name Input -->
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <div class="input-wrapper">
+              <span class="input-icon">👤</span>
+              <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                [(ngModel)]="name"
+                placeholder="Enter your full name"
+                required
+                minlength="2"
+                #nameInput="ngModel"
+              />
+            </div>
+            <small class="error-text" *ngIf="nameInput.invalid && nameInput.touched">
+              Please enter your full name (at least 2 characters)
+            </small>
+          </div>
+          
+          <!-- Email Input -->
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <div class="input-wrapper">
+              <span class="input-icon">📧</span>
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                [(ngModel)]="email"
+                placeholder="Enter your email"
+                required
+                email
+                #emailInput="ngModel"
+              />
+            </div>
+            <small class="error-text" *ngIf="emailInput.invalid && emailInput.touched">
+              Please enter a valid email address
+            </small>
+          </div>
+          
+          <!-- Password Input -->
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-wrapper">
+              <span class="input-icon">🔒</span>
+              <input 
+                type="password" 
+                id="password" 
+                name="password" 
+                [(ngModel)]="password"
+                placeholder="Create a password"
+                required
+                minlength="6"
+                #passwordInput="ngModel"
+              />
+            </div>
+            <small class="error-text" *ngIf="passwordInput.invalid && passwordInput.touched">
+              Password must be at least 6 characters
+            </small>
+          </div>
+          
+          <!-- Confirm Password Input -->
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <div class="input-wrapper">
+              <span class="input-icon">🔒</span>
+              <input 
+                type="password" 
+                id="confirmPassword" 
+                name="confirmPassword" 
+                [(ngModel)]="confirmPassword"
+                placeholder="Confirm your password"
+                required
+                minlength="6"
+                #confirmPasswordInput="ngModel"
+              />
+            </div>
+            <small class="error-text" *ngIf="confirmPasswordInput.invalid && confirmPasswordInput.touched">
+              Please confirm your password
+            </small>
+            <small class="error-text" *ngIf="password !== confirmPassword && confirmPasswordInput.touched">
+              Passwords do not match
+            </small>
+          </div>
+          
+          <!-- Terms and Conditions -->
+          <div class="form-options">
+            <label class="terms-checkbox">
+              <input type="checkbox" [(ngModel)]="agreeToTerms" name="agreeToTerms" required>
+              <span>I agree to the <a href="#" class="terms-link">Terms & Conditions</a></span>
+            </label>
+          </div>
+          
+          <!-- Register Button -->
+          <button 
+            type="submit" 
+            class="register-btn" 
+            [disabled]="registerForm.invalid || password !== confirmPassword || !agreeToTerms">
+            Create Account
+          </button>
+          
+          <!-- Sign In Link -->
+          <p class="signin-text">
+            Already have an account? <a routerLink="/login" class="signin-link">Sign in</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
