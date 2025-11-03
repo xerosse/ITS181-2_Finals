@@ -8,6 +8,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { LoginComponent } from './login/login.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { AdminComponent } from './admin/admin.component';
+import { AdoptComponent } from './adopt/adopt.component';
 import { HomeComponent } from './home/home.component';
 
 @NgModule({
@@ -16,6 +19,9 @@ import { HomeComponent } from './home/home.component';
     AddDogComponent,
     AboutUsComponent,
     LoginComponent,
+    RegistrationComponent,
+    AdminComponent,
+    AdoptComponent
     HomeComponent
   ],
   imports: [

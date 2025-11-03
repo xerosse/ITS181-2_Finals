@@ -13,7 +13,12 @@ public class Application {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @ManyToOne
+    @JoinColumn(name = "dog_id")
     private Dog dog;
+    
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private Account user;
 
     @Enumerated(EnumType.STRING)
