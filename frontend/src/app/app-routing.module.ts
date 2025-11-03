@@ -8,9 +8,11 @@ import { RegistrationComponent } from './registration/registration.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdoptComponent } from './adopt/adopt.component';
 import { HomeComponent } from './home/home.component';
+import { ShowDogComponent } from './show-dog/show-dog.component';
 
 const routes: Routes = [
   { path: 'add-dog', component: AddDogComponent },
+  { path: 'dog/:id', component: ShowDogComponent},
   { path: 'about-us', component: AboutUsComponent },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
