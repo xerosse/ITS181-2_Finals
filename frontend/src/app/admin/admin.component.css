@@ -1,13 +1,13 @@
 .admin-page {
   min-height: calc(100vh - 180px);
-  background: linear-gradient(135deg, #ffa726 0%, #ff9800 100%);
+  background: linear-gradient(135deg, var(--color-orange) 0%, var(--color-orange) 100%);
   padding: 40px 20px;
 }
 
 .admin-container {
   max-width: 1400px;
   margin: 0 auto;
-  background: white;
+  background: var(--color-white);
   border-radius: 25px;
   overflow: hidden;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
@@ -15,8 +15,8 @@
 
 /* Header */
 .admin-header {
-  background: #00bcd4;
-  color: white;
+  background: var(--color-blue);
+  color: var(--color-white);
   padding: 30px 40px;
   text-align: center;
 }
@@ -34,8 +34,8 @@
 /* Tab Navigation */
 .tab-navigation {
   display: flex;
-  background: #f5f5f5;
-  border-bottom: 2px solid #ddd;
+  background: var(--color-white);
+  border-bottom: 2px solid var(--color-white);
 }
 
 .tab-btn {
@@ -45,20 +45,20 @@
   border: none;
   font-size: 1.1rem;
   font-weight: 600;
-  color: #666;
+  color: var(--color-black);
   cursor: pointer;
   transition: all 0.3s ease;
   border-bottom: 3px solid transparent;
 }
 
 .tab-btn:hover {
-  background: #e0e0e0;
+  background: var(--color-white);
 }
 
 .tab-btn.active {
-  color: #00bcd4;
-  background: white;
-  border-bottom-color: #00bcd4;
+  color: var(--color-blue);
+  background: var(--color-white);
+  border-bottom-color: var(--color-blue);
 }
 
 /* Tab Content */
@@ -74,7 +74,7 @@
 
 /* List Section */
 .list-section {
-  background: #f8f9fa;
+  background: var(--color-white);
   border-radius: 15px;
   padding: 25px;
   max-height: 600px;
@@ -90,12 +90,12 @@
 
 .section-header h2 {
   font-size: 1.5rem;
-  color: #333;
+  color: var(--color-black);
 }
 
 .btn-add {
-  background: #00bcd4;
-  color: white;
+  background: var(--color-blue);
+  color: var(--color-white);
   border: none;
   padding: 10px 20px;
   border-radius: 8px;
@@ -106,7 +106,7 @@
 }
 
 .btn-add:hover {
-  background: #00acc1;
+  background: var(--color-blue);
   transform: translateY(-2px);
 }
 
@@ -120,7 +120,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: white;
+  background: var(--color-white);
   padding: 15px;
   border-radius: 10px;
   cursor: pointer;
@@ -134,18 +134,18 @@
 
 .record-info h3 {
   font-size: 1.1rem;
-  color: #333;
+  color: var(--color-black);
   margin-bottom: 5px;
 }
 
 .record-info p {
   font-size: 0.9rem;
-  color: #666;
+  color: var(--color-black);
 }
 
 .btn-delete {
-  background: #ff5252;
-  color: white;
+  background: var(--color-orange);
+  color: var(--color-white);
   border: none;
   padding: 8px 12px;
   border-radius: 6px;
@@ -155,12 +155,12 @@
 }
 
 .btn-delete:hover {
-  background: #ff1744;
+  background: var(--color-orange)
 }
 
 /* Form Section */
 .form-section {
-  background: #f8f9fa;
+  background: var(--color-white);
   border-radius: 15px;
   padding: 30px;
   max-height: 600px;
@@ -169,7 +169,7 @@
 
 .form-section h2 {
   font-size: 1.5rem;
-  color: #333;
+  color: var(--color-black);
   margin-bottom: 25px;
 }
 
@@ -181,7 +181,7 @@
 
 .form-group label {
   display: block;
-  color: #333;
+  color: var(--color-black);
   font-weight: 600;
   margin-bottom: 8px;
   font-size: 0.95rem;
@@ -192,7 +192,7 @@
 .form-group textarea {
   width: 100%;
   padding: 12px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-white);
   border-radius: 8px;
   font-size: 0.95rem;
   transition: all 0.3s ease;
@@ -203,7 +203,7 @@
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #00bcd4;
+  border-color: var(--color-blue);
   box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.1);
 }
 
@@ -231,8 +231,8 @@
 }
 
 .btn-remove {
-  background: #ff5252;
-  color: white;
+  background: var(--color-orange);
+  color: var(--color-white);
   border: none;
   padding: 12px 16px;
   border-radius: 6px;
@@ -247,12 +247,12 @@
 }
 
 .btn-remove:hover {
-  background: #ff1744;
+  background: var(--color-orange);
 }
 
 .btn-add-small {
-  background: #4caf50;
-  color: white;
+  background: var(--color-blue);
+  color: var(--color-white);
   border: none;
   padding: 10px 20px;
   border-radius: 6px;
@@ -264,13 +264,13 @@
 }
 
 .btn-add-small:hover {
-  background: #45a049;
+  background: var(--color-black);
 }
 
 .btn-save {
   width: 100%;
-  background: #00bcd4;
-  color: white;
+  background: var(--color-blue);
+  color: var(--color-white);
   border: none;
   padding: 15px;
   border-radius: 8px;
@@ -282,7 +282,7 @@
 }
 
 .btn-save:hover {
-  background: #00acc1;
+  background: var(--color-blue);
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0, 188, 212, 0.3);
 }

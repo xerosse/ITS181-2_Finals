@@ -10,7 +10,7 @@
                 <h2>{{dog.name}}</h2>
             </div>
 
-            <div class="dog-status">{{dog.status}}</div>
+            <div class="dog-status">{{dog.status | titlecase}}</div>
 
             <div class="info">
 
@@ -59,6 +59,6 @@
         </div>
     </div>
 
-    <button class="adopt-button" routerLink="/">Adopt Me!</button>
+    <button class="adopt-button" *ngIf="dog.status !== 'ADOPTED'" routerLink="/">Adopt Me!</button>
 
 </div>

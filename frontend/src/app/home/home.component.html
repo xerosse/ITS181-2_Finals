@@ -14,25 +14,11 @@
     <h2>Dogs Available for Adoption</h2>
 
     <div class="dog-grid">
-      <button class="dog-card">
-        <img class="dog-img" src="assets/placeholder.png" alt="Dog" />
-        <div class="dog-name">Name</div>
+      <button class="dog-card" *ngFor="let dog of topDogs" routerLink="/dog/{{dog.id}}">
+        <img class="dog-img" [src]="dog.image_paths[0] || 'assets/placeholder.png'" [alt]="dog.name" />
+        <div class="dog-name">{{dog.name}}</div>
       </button>
 
-      <button class="dog-card" routerLink="/adopt">
-        <img class="dog-img" src="assets/placeholder.png" alt="Dog" />
-        <div class="dog-name">Name</div>
-      </button>
-
-      <button class="dog-card" routerLink="/adopt">
-        <img class="dog-img" src="assets/placeholder.png" alt="Dog" />
-        <div class="dog-name">Name</div>
-      </button>
-
-      <button class="dog-card" routerLink="/adopt">
-        <img class="dog-img" src="assets/placeholder.png" alt="Dog" />
-        <div class="dog-name">Name</div>
-      </button>
     </div>
 
     <button class="btn" routerLink="/adopt">View More</button>
@@ -67,13 +53,13 @@
     <h2>Latest News from SiteName</h2>
 
     <div class="dog-news-grid">
-      <button class="dog-news-card" routerLink="/adopt">
-        <img class="dog-news-img" src="assets/placeholder.png" alt="News Image" />
+      <button class="dog-news-card" routerLink="/dog/{{latestArrival.id}}">
+        <img class="dog-news-img" [src]="latestArrival.image_paths[0] || 'assets/placeholder.png'" [alt]="latestArrival.name" />
         <div class="dog-news-text">New Rescue</div>
       </button>
 
-      <button class="dog-news-card" routerLink="/adopt">
-        <img class="dog-news-img" src="assets/placeholder.png" alt="News Image" />
+      <button class="dog-news-card" routerLink="/dog/{{latestAdopted.id}}">
+        <img class="dog-news-img" [src]="latestAdopted.image_paths[0] || 'assets/placeholder.png'" [alt]="latestAdopted.name" />
         <div class="dog-news-text">Recent Adopt</div>
       </button>
     </div>

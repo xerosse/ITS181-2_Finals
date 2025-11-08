@@ -6,9 +6,9 @@ export class Dog {
     age: number = 0;
     sex: 'M' | 'F' | '' = '';
     breed: string = '';
-    size: 'Small' | 'Medium' | 'Large' | '' = '' ;
+    size: 'SMALL' | 'MEDIUM' | 'LARGE' | '' = '' ;
     weight: number = 0;
-    status: 'Adopted' | 'Available'  = 'Available';
+    status: 'ADOPTED' | 'AVAILABLE'  = 'AVAILABLE';
 
     arrived_date: Date = new Date();
     adopted_date?: Date;

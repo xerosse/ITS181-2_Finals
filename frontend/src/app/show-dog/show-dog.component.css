@@ -130,6 +130,11 @@
 }
 
 /* Responsive Design */
+@media (max-width: 1250px) {
+    .gallery {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
 @media (max-width: 1024px) {
     .page-container {
         padding: 100px;
@@ -160,6 +165,9 @@
     .info-item {
         font-size: 18px;
     }
+    .gallery {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 @media (max-width: 768px) {
@@ -167,7 +175,7 @@
         padding: 50px 20px;
     }
     .gallery {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
