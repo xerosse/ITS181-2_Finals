@@ -13,6 +13,7 @@
 /* Header */
 .main-header {
   background: var(--color-white); 
+  z-index: 999;
 }
 
 .header-top {

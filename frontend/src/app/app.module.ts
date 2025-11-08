@@ -13,6 +13,8 @@ import { AdminComponent } from './admin/admin.component';
 import { AdoptComponent } from './adopt/adopt.component';
 import { HomeComponent } from './home/home.component';
 import { ShowDogComponent } from './show-dog/show-dog.component';
+import { ArticlesPageComponent } from './articles-page/articles-page.component';
+import { ShowArticleComponent } from './show-article/show-article.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { ShowDogComponent } from './show-dog/show-dog.component';
     AdminComponent,
     AdoptComponent,
     HomeComponent,
-    ShowDogComponent
+    ShowDogComponent,
+    ArticlesPageComponent,
+    ShowArticleComponent
   ],
   imports: [
     BrowserModule,
