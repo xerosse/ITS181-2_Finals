@@ -1,0 +1,79 @@
+<div class="login-page">
+  <div class="login-container">
+    <!-- Left Side - Image -->
+    <div class="login-image">
+      <img src="assets/puppy-1047521_1280.jpg" alt="Cute puppy">
+    </div>
+    
+    <!-- Right Side - Login Form -->
+    <div class="login-form-container">
+      <div class="login-form">
+        <h2>Adopt A Pet! 🐾</h2>
+        <p class="welcome-text">Welcome back! Please login to your account</p>
+        
+        <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+          <!-- Email Input -->
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <div class="input-wrapper">
+              <span class="input-icon">📧</span>
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                [(ngModel)]="email"
+                placeholder="Enter your email"
+                required
+                email
+                #emailInput="ngModel"
+              />
+            </div>
+            <small class="error-text" *ngIf="emailInput.invalid && emailInput.touched">
+              Please enter a valid email address
+            </small>
+          </div>
+          
+          <!-- Password Input -->
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-wrapper">
+              <span class="input-icon">🔒</span>
+              <input 
+                type="password" 
+                id="password" 
+                name="password" 
+                [(ngModel)]="password"
+                placeholder="Enter your password"
+                required
+                minlength="6"
+                #passwordInput="ngModel"
+              />
+            </div>
+            <small class="error-text" *ngIf="passwordInput.invalid && passwordInput.touched">
+              Password must be at least 6 characters
+            </small>
+          </div>
+          
+          <!-- Remember Me & Forgot Password -->
+          <div class="form-options">
+            <label class="remember-me">
+              <input type="checkbox" [(ngModel)]="rememberMe" name="rememberMe">
+              <span>Remember me</span>
+            </label>
+            <a href="#" class="forgot-password">Forgot Password?</a>
+          </div>
+          
+          <!-- Login Button -->
+          <button type="submit" class="login-btn" [disabled]="loginForm.invalid">
+            Login
+          </button>
+          
+          <!-- Sign Up Link -->
+          <p class="signup-text">
+            Don't have an account? <a routerLink="/register" class="signup-link">Sign up</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

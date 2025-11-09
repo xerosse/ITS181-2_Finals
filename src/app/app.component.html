@@ -1,0 +1,84 @@
+<style>
+  @import './app.component.css';
+</style>
+
+<div class="app-container">
+  <!-- Header with Navigation -->
+  <header class="main-header">
+    <div class="header-top">
+      <div class="logo">
+        <span>📦</span>
+        <span>Animal Clinic</span>
+      </div>
+      <button class="sign-in-btn" routerLink="/login">
+        <img src="assets/icon_login.png">Sign in
+      </button>
+    </div>
+    
+    <nav class="main-nav">
+      <a routerLink="/home" routerLinkActive="active">Home</a>
+      <a routerLink="/about-us" routerLinkActive="active">About Us</a>
+      <a routerLink="/adopt" routerLinkActive="active">Adopt</a>
+      <a routerLink="/news" routerLinkActive="active">News/Updates</a>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <span>📦</span>
+        <span>Animal Clinic</span>
+      </div>
+      
+      <div class="footer-info">
+        <div class="footer-section">
+          <h3>Office Hours</h3>
+          <p>Monday - Saturday</p>
+          <p>08:00 AM - 06:00 PM</p>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <p>+63 (924) 735 6522</p>
+          <p>11th Street, Mexico City, Philippines</p>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Social Media</h3>
+          <div class="social-icons">
+            <a href="#"><img src="assets/icon_facebook.svg"></a>
+            <a href="#"><img src="assets/icon_instagram.svg"></a>
+            <a href="#"><img src="assets/icon_twitter.svg"></a>
+            <a href="#"><img src="assets/icon_youtube.svg"></a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-map">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3861.5721083186722!2d121.0150497!3d14.5664448!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397c9080e6f2abd%3A0x1d5b9be15aad02!2sMap%C3%BAa%20University%20Makati!5e0!3m2!1sen!2sph!4v1762091837184!5m2!1sen!2sph"
+          width="100%" 
+          height="200" 
+          style="border:0; border-radius: 10px;" 
+          allowfullscreen="" 
+          loading="lazy">
+        </iframe>
+      </div>
+      
+      <div class="footer-bottom">
+        <span>© Animal Clinic 2025</span>
+        <span>
+          <a href="#">Terms of Service</a> | 
+          <a href="#">Privacy Policy</a> | 
+          <a href="#">Sitemap</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+</div>

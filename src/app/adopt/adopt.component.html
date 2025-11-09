@@ -1,0 +1,124 @@
+<div class="adopt-page">
+  <!-- Hero Section with Image Background -->
+  <section class="hero-section">
+    <h1>Adopt Now</h1>
+  </section>
+
+  <!-- Main Content -->
+  <div class="adopt-container">
+    <!-- Sidebar Filters -->
+    <aside class="filters-sidebar">
+      <!-- Search by Name -->
+      <div class="search-box">
+        <input 
+          type="text" 
+          [(ngModel)]="searchName" 
+          (ngModelChange)="applyFilters()"
+          placeholder="🔍 Name"
+          class="search-input"
+        />
+        <button class="search-btn" (click)="applyFilters()">Search</button>
+      </div>
+
+      <!-- Refine Your Search -->
+      <div class="filter-section">
+        <h3 class="filter-title">Refine Your Search</h3>
+
+        <div class="filter-group">
+          <label>Arrival Date</label>
+          <select [(ngModel)]="filterArrivalDate" (ngModelChange)="applyFilters()">
+            <option value="Any">Any</option>
+            <option value="Last Week">Last Week</option>
+            <option value="Last Month">Last Month</option>
+            <option value="Last 3 Months">Last 3 Months</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Breed</label>
+          <select [(ngModel)]="filterBreed" (ngModelChange)="applyFilters()">
+            <option *ngFor="let breed of breeds" [value]="breed">{{breed}}</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Age</label>
+          <select [(ngModel)]="filterAge" (ngModelChange)="applyFilters()">
+            <option value="Any">Any</option>
+            <option value="0-1">0-1 years</option>
+            <option value="1-3">1-3 years</option>
+            <option value="3-7">3-7 years</option>
+            <option value="7+">7+ years</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Size</label>
+          <select [(ngModel)]="filterSize" (ngModelChange)="applyFilters()">
+            <option value="Any">Any</option>
+            <option value="SMALL">Small</option>
+            <option value="MEDIUM">Medium</option>
+            <option value="LARGE">Large</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Sex</label>
+          <select [(ngModel)]="filterSex" (ngModelChange)="applyFilters()">
+            <option value="Any">Any</option>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Weight</label>
+          <select [(ngModel)]="filterWeight" (ngModelChange)="applyFilters()">
+            <option value="Any">Any</option>
+            <option value="0-10">0-10 kg</option>
+            <option value="10-25">10-25 kg</option>
+            <option value="25-50">25-50 kg</option>
+            <option value="50+">50+ kg</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Status</label>
+          <select [(ngModel)]="filterStatus" (ngModelChange)="applyFilters()">
+            <option value="Any">Any</option>
+            <option value="AVAILABLE">Available</option>
+            <option value="ADOPTED">Adopted</option>
+          </select>
+        </div>
+
+        <button class="reset-btn" (click)="resetFilters()">Reset Filters</button>
+      </div>
+    </aside>
+
+    <!-- Dogs Grid -->
+    <main class="dogs-content">
+      <div class="content-header">
+        <h2>Displaying {{filteredDogs.length}} of {{dogs.length}} dogs</h2>
+      </div>
+
+      <div class="dogs-grid">
+        <button class="dog-card" *ngFor="let dog of filteredDogs" routerLink="/dog/{{dog.id}}">
+          <div class="dog-image">
+            <img [src]="dog.image_paths[0] || 'assets/puppy-1047521_1280.jpg'" [alt]="dog.name">
+          </div>
+          <div class="dog-info">
+            <h3 class="dog-name">{{dog.name}}</h3>
+            <p class="dog-details">
+              {{dog.size | titlecase}} | {{dog.sex === 'M' ? 'Male' : 'Female'}} | {{dog.age}} {{dog.age === 1 ? 'year' : 'years'}}
+            </p>
+          </div>
+        </button>
+      </div>
+
+      <!-- Empty State -->
+      <div class="empty-state" *ngIf="filteredDogs.length === 0">
+        <p>No dogs found matching your filters. Try adjusting your search criteria.</p>
+      </div>
+    </main>
+  </div>
+</div>

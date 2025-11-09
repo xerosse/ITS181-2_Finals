@@ -1,0 +1,16 @@
+/* globals for reuse */
+:root {
+    --color-blue: #00B1BA;
+    --color-orange: #FCAF5D;
+    --color-white: #FEFFEC;
+    --color-black: #414140;
+
+    --font: "Istok Web", "Open Sans", "Helvetica Neue", Arial, sans-serif;
+    
+    --margin-main: 150px;
+    --margin-narrow: 300px;
+}
+
+body {
+    margin: 0;
+}

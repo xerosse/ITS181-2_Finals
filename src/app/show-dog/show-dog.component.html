@@ -1,0 +1,64 @@
+<div class="page-container" *ngIf="dog">
+
+    <div class="dog-section">
+
+        <!-- Left col -->
+        <div class="left-column">
+            <img class="dog-image" [src]="dog.image_paths[0]">
+
+            <div class="dog-name">
+                <h2>{{dog.name}}</h2>
+            </div>
+
+            <div class="dog-status">{{dog.status | titlecase}}</div>
+
+            <div class="info">
+
+                <div class="info-item">
+                    <div class="label">Size</div>
+                    <div class="value">{{dog.size | titlecase}}</div>
+                </div>
+
+                <div class="info-item">
+                    <div class="label">Sex</div>
+                    <div class="value">{{ dog.sex.toUpperCase() === 'F' ? 'Female' : 'Male' }}</div>
+                </div>
+
+                <div class="info-item">
+                    <div class="label">Age</div>
+                    <div class="value">{{dog.age}}</div>
+                </div>
+
+                <div class="info-item">
+                    <div class="label">Breed</div>
+                    <div class="value">{{dog.breed}}</div>
+                </div>
+
+                <div class="info-item">
+                    <div class="label">Weight</div>
+                    <div class="value">{{dog.weight}}</div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Right col -->
+        <div class="right-column">
+
+            <div class="about">
+                <h3>About {{dog.name}}</h3>
+                <p>{{dog.description}}</p>
+            </div>
+
+            <!-- Gallery -->
+            <div class="gallery" *ngIf="dog.image_paths?.length">
+                <img *ngFor="let img of dog.image_paths" [src]="img" alt="Dog photo">
+            </div>
+
+        </div>
+    </div>
+
+    <button class="adopt-button" *ngIf="dog.status !== 'ADOPTED'" routerLink="/">Adopt Me!</button>
+
+</div>
