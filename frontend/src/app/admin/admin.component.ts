@@ -5,6 +5,8 @@ import { Application } from '../model/application';
 import { DogService } from '../service/dog.service';
 import { AccountService } from '../service/account.service';
 import { ApplicationService } from '../service/application.service';
+import { ArticleService } from '../service/article.service';
+import { Article } from '../model/article';
 
 @Component({
   selector: 'app-admin',
@@ -12,7 +14,7 @@ import { ApplicationService } from '../service/application.service';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-  activeTab: 'dogs' | 'accounts' | 'applications' = 'dogs';
+  activeTab: 'dogs' | 'accounts' | 'applications' | 'articles' = 'dogs';
   
   // Dogs
   dogs: Dog[] = [];
@@ -29,19 +31,26 @@ export class AdminComponent implements OnInit {
   selectedApplication: Application = new Application();
   isEditingApplication: boolean = false;
 
+  // Articles
+  articles: Article[] = [];
+  selectedArticle: Article = new Article();
+  isEditingArticle: boolean = false;
+
   constructor(
     private dogService: DogService,
     private accountService: AccountService,
-    private applicationService: ApplicationService
+    private applicationService: ApplicationService,
+    private articleService: ArticleService
   ) {}
 
   ngOnInit() {
     this.loadDogs();
     this.loadAccounts();
     this.loadApplications();
+    this.loadArticles();
   }
 
-  switchTab(tab: 'dogs' | 'accounts' | 'applications') {
+  switchTab(tab: 'dogs' | 'accounts' | 'applications' | 'articles') {
     this.activeTab = tab;
   }
 
@@ -172,6 +181,46 @@ export class AdminComponent implements OnInit {
       this.applicationService.deleteApplication(id).subscribe(() => {
         this.loadApplications();
         alert('Application deleted successfully!');
+      });
+    }
+  }
+
+  // Article CRUD
+  loadArticles() {
+    this.articleService.getArticles().subscribe(data => this.articles = data);
+  }
+
+  selectArticle(article: Article) {
+    this.selectedArticle = { ...article };
+    this.isEditingArticle = true;
+  }
+
+  newArticle() {
+    this.selectedArticle = new Article();
+    this.isEditingArticle = false;
+  }
+
+  saveArticle() {
+    if (this.isEditingArticle) {
+      this.articleService.updateArticle(this.selectedArticle.id, this.selectedArticle).subscribe(() => {
+        this.loadArticles();
+        this.newArticle();
+        alert('Article updated successfully!');
+      });
+    } else {
+      this.articleService.addArticle(this.selectedArticle).subscribe(() => {
+        this.loadArticles();
+        this.newArticle();
+        alert('Article added successfully!');
+      });
+    }
+  }
+
+  deleteArticle(id: number) {
+    if (confirm('Are you sure you want to delete this article?')) {
+      this.articleService.deleteArticle(id).subscribe(() => {
+        this.loadArticles();
+        alert('Article deleted successfully!');
       });
     }
   }
