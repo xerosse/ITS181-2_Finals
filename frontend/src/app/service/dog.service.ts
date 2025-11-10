@@ -9,6 +9,7 @@ import { Dog } from '../model/dog';
 })
 export class DogService {
   apiUrl: string;
+  private httpOptions = { withCredentials: true };
 
   constructor(private http: HttpClient) {
     this.apiUrl = 'http://localhost:18080/api';
@@ -28,17 +29,17 @@ export class DogService {
         dog.image_paths = [dog.image_paths]
       }
 
-      return this.http.post<Dog>(this.apiUrl + '/add-dog', dog);
+      return this.http.post<Dog>(this.apiUrl + '/add-dog', dog, this.httpOptions);
   }
 
   public updateDog(id: number, dog: Dog): Observable<Dog> {
     if (!Array.isArray(dog.image_paths)) {
       dog.image_paths = [dog.image_paths]
     }
-    return this.http.put<Dog>(this.apiUrl + '/update-dog/' + id, dog);
+    return this.http.put<Dog>(this.apiUrl + '/update-dog/' + id, dog, this.httpOptions);
   }
 
   public deleteDog(id: number): Observable<void> {
-    return this.http.delete<void>(this.apiUrl + '/delete-dog/' + id);
+    return this.http.delete<void>(this.apiUrl + '/delete-dog/' + id, this.httpOptions);
   }
 }
