@@ -3,6 +3,9 @@ package group2.backend.service;
 import group2.backend.model.Dog;
 import group2.backend.repository.DogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -63,6 +66,11 @@ public class DogService implements IDogService{
             repository.delete(dog.get());
         }
 
+    }
+
+    @Override
+    public Page<Dog> search(Specification<Dog> spec, Pageable pageable) {
+        return repository.findAll(spec, pageable);
     }
 
 
