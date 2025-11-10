@@ -8,6 +8,7 @@ import { Application } from '../model/application';
 })
 export class ApplicationService {
   apiUrl: string;
+  private httpOptions = { withCredentials: true };
 
   constructor(private http: HttpClient) {
     this.apiUrl = 'http://localhost:18080/api';
@@ -22,7 +23,7 @@ export class ApplicationService {
   }
 
   public addApplication(application: Application): Observable<Application> {
-    return this.http.post<Application>(this.apiUrl + '/add-application', application, { withCredentials: true });
+    return this.http.post<Application>(this.apiUrl + '/add-application', application, this.httpOptions);
   }
 
   public updateApplication(id: number, application: Application): Observable<Application> {

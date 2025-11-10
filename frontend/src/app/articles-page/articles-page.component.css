@@ -49,8 +49,11 @@
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  padding-bottom: 20px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  border: none;
+  overflow: hidden;
+  padding: 0;
 }
 .info-card:hover {
   transform: translateY(-5px);
@@ -60,7 +63,6 @@
 .info-card img {
   display: block;
   width: 100%;
-  border-radius: 20px 20px 0 0;
   object-fit: cover;
   aspect-ratio: 1.5/1;
 }

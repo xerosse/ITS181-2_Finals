@@ -59,6 +59,6 @@
         </div>
     </div>
 
-    <button class="adopt-button" *ngIf="dog.status !== 'ADOPTED'" routerLink="/">Adopt Me!</button>
+    <button class="adopt-button" *ngIf="dog.status !== 'ADOPTED'" (click)="createApplication()">Adopt Me!</button>
 
 </div>

@@ -8,10 +8,24 @@
       <h3>Clinic Blog</h3>
       <div class="card-container">
 
-        <div class="info-card">
+        <!-- repeat this for each group -->
+        <div *ngFor="let article of articles | slice:0">
+          <!-- change the array values on ngIf to the id# you want to use -->
+          <!-- number of cards doesn't matter, it should auto-adjust -->
+          <button 
+            class="info-card" 
+            *ngIf="[1,2,3,5].includes(article.id!)"
+            routerLink="/article/{{article.id}}"
+          >
+            <img [src]="article.image_path || 'assets/placeholder.png'" [alt]="article.title">
+            <p>{{ article.content.length > 100 ? (article.content | slice:0:100) + '...' : article.content }}</p>
+          </button>
+        </div>
+
+        <button class="info-card">
           <img src="assets/Boxador.jpg">
           <p>This once abandoned Boxador has been in our care for 2 years and is now fit for adoption. Here's Rocky's story</p>
-        </div>
+        </button>
 
         <div class="info-card">
           <img src="https://d2zp5xs5cp8zlg.cloudfront.net/image-44365-800.jpg">

@@ -80,7 +80,7 @@ export class AdminComponent implements OnInit {
     }
 
     if (this.isEditingDog) {
-      this.dogService.updateDog(this.selectedDog.id, this.selectedDog).subscribe({
+      this.dogService.updateDog(this.selectedDog.id!, this.selectedDog).subscribe({
         next: (response) => {
           console.log('Dog updated successfully:', response);
           this.loadDogs();
@@ -216,11 +216,20 @@ export class AdminComponent implements OnInit {
 
   saveApplication() {
     if (this.isEditingApplication) {
+      // handle dog status change
+      if (this.selectedApplication.status === "COMPLETE" ) {
+        this.selectedDog = this.selectedApplication.dog;
+        this.selectedDog.status = "ADOPTED";
+        this.selectedDog.adopted_date = new Date();
+        this.saveDog();
+      }
+
       this.applicationService.updateApplication(this.selectedApplication.id, this.selectedApplication).subscribe(() => {
         this.loadApplications();
         this.newApplication();
         alert('Application updated successfully!');
       });
+
     } else {
       this.applicationService.addApplication(this.selectedApplication).subscribe(() => {
         this.loadApplications();
