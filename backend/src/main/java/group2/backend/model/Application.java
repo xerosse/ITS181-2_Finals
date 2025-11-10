@@ -10,7 +10,7 @@ import java.util.*;
 @Table(name="applications")
 public class Application {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @ManyToOne

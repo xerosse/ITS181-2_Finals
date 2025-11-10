@@ -12,6 +12,24 @@ export interface LoginResponse {
   role?: string;
 }
 
+export interface Account {
+  id: number;
+  name: string;
+  email: string;
+  role: string;
+}
+
+export interface Application {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  position: string;
+  status: string;
+  submittedAt?: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,8 +37,10 @@ export class AuthService {
   private apiUrl = 'http://localhost:18080/api';
   private currentUserSubject = new BehaviorSubject<LoginResponse | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
+  private isBrowser: boolean;
 
   constructor(private http: HttpClient) {
+    this.isBrowser = typeof window !== 'undefined' && typeof localStorage !== 'undefined';
     this.checkCurrentUser();
   }
 
@@ -30,7 +50,9 @@ export class AuthService {
         tap(response => {
           if (response.success) {
             this.currentUserSubject.next(response);
-            localStorage.setItem('currentUser', JSON.stringify(response));
+            if (this.isBrowser) {
+              localStorage.setItem('currentUser', JSON.stringify(response));
+            }
           }
         }),
         catchError(error => {
@@ -56,7 +78,9 @@ export class AuthService {
       .pipe(
         tap(() => {
           this.currentUserSubject.next(null);
-          localStorage.removeItem('currentUser');
+          if (this.isBrowser) {
+            localStorage.removeItem('currentUser');
+          }
         })
       );
   }
@@ -67,16 +91,20 @@ export class AuthService {
         next: (response) => {
           if (response.success) {
             this.currentUserSubject.next(response);
-            localStorage.setItem('currentUser', JSON.stringify(response));
+            if (this.isBrowser) {
+              localStorage.setItem('currentUser', JSON.stringify(response));
+            }
           }
         },
         error: () => {
-          const stored = localStorage.getItem('currentUser');
-          if (stored) {
-            try {
-              this.currentUserSubject.next(JSON.parse(stored));
-            } catch (e) {
-              localStorage.removeItem('currentUser');
+          if (this.isBrowser) {
+            const stored = localStorage.getItem('currentUser');
+            if (stored) {
+              try {
+                this.currentUserSubject.next(JSON.parse(stored));
+              } catch (e) {
+                localStorage.removeItem('currentUser');
+              }
             }
           }
         }
@@ -93,5 +121,25 @@ export class AuthService {
 
   isAdmin(): boolean {
     return this.currentUserSubject.value?.role === 'ADMIN';
+  }
+
+  getAllAccounts(): Observable<Account[]> {
+    return this.http.get<Account[]>(`${this.apiUrl}/accounts`, { withCredentials: true })
+      .pipe(
+        catchError(error => {
+          console.error('Error fetching accounts:', error);
+          return of([]);
+        })
+      );
+  }
+
+  getAllApplications(): Observable<Application[]> {
+    return this.http.get<Application[]>(`${this.apiUrl}/applications`, { withCredentials: true })
+      .pipe(
+        catchError(error => {
+          console.error('Error fetching applications:', error);
+          return of([]);
+        })
+      );
   }
 }

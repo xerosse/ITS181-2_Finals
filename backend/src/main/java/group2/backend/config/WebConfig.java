@@ -14,7 +14,6 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins("http://localhost:4200")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
-                .exposedHeaders("*")
                 .allowCredentials(true)
                 .maxAge(3600);
     }
@@ -24,13 +23,12 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(new AuthInterceptor())
                 .addPathPatterns("/api/**")
                 .excludePathPatterns(
-                    "/api/login",
-                    "/api/logout", 
-                    "/api/current-user",
-                    "/api/add-account",
-                    "/api/dogs",
-                    "/api/show-dog/**",
-                    "/api/articles/**"
-                );
+                        "/api/login",
+                        "/api/logout",
+                        "/api/current-user",
+                        "/api/add-account", // Allow registration
+                        "/api/dogs", // Public: view all dogs
+                        "/api/show-dog/**", // Public: view single dog,
+                        "/api/articles/**");
     }
 }

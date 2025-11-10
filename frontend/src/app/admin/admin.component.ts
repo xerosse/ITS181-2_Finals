@@ -66,21 +66,57 @@ export class AdminComponent implements OnInit {
 
   newDog() {
     this.selectedDog = new Dog();
+    // Initialize image_paths as empty array
+    this.selectedDog.image_paths = [];
     this.isEditingDog = false;
   }
 
   saveDog() {
+    console.log('Attempting to save dog:', this.selectedDog);
+    
+    // Ensure image_paths is at least an empty array
+    if (!this.selectedDog.image_paths || this.selectedDog.image_paths.length === 0) {
+      this.selectedDog.image_paths = [''];
+    }
+
     if (this.isEditingDog) {
-      this.dogService.updateDog(this.selectedDog.id!, this.selectedDog).subscribe(() => {
-        this.loadDogs();
-        this.newDog();
-        alert('Dog updated successfully!');
+      this.dogService.updateDog(this.selectedDog.id, this.selectedDog).subscribe({
+        next: (response) => {
+          console.log('Dog updated successfully:', response);
+          this.loadDogs();
+          this.newDog();
+          alert('Dog updated successfully!');
+        },
+        error: (error) => {
+          console.error('Full error object:', error);
+          console.error('Error status:', error.status);
+          console.error('Error message:', error.message);
+          alert('Failed to update dog: ' + (error.error?.message || error.message || 'Unknown error'));
+        }
       });
     } else {
-      this.dogService.addDog(this.selectedDog).subscribe(() => {
-        this.loadDogs();
-        this.newDog();
-        alert('Dog added successfully!');
+      console.log('Calling addDog service...');
+      this.dogService.addDog(this.selectedDog).subscribe({
+        next: (response) => {
+          console.log('Dog added successfully:', response);
+          this.loadDogs();
+          this.newDog();
+          alert('Dog added successfully!');
+        },
+        error: (error) => {
+          console.error('Full error object:', error);
+          console.error('Error status:', error.status);
+          console.error('Error message:', error.message);
+          console.error('Error headers:', error.headers);
+          
+          let errorMsg = 'Failed to add dog. ';
+          if (error.status === 0) {
+            errorMsg += 'Cannot connect to server. Make sure the backend is running on http://localhost:18080';
+          } else {
+            errorMsg += (error.error?.message || error.message || 'Unknown error');
+          }
+          alert(errorMsg);
+        }
       });
     }
   }
@@ -121,17 +157,35 @@ export class AdminComponent implements OnInit {
   }
 
   saveAccount() {
+    // Validate password for new accounts
+    if (!this.isEditingAccount && (!this.selectedAccount.password || this.selectedAccount.password.length < 6)) {
+      alert('Password must be at least 6 characters');
+      return;
+    }
+
     if (this.isEditingAccount) {
-      this.accountService.updateAccount(this.selectedAccount.id, this.selectedAccount).subscribe(() => {
-        this.loadAccounts();
-        this.newAccount();
-        alert('Account updated successfully!');
+      this.accountService.updateAccount(this.selectedAccount.id, this.selectedAccount).subscribe({
+        next: () => {
+          this.loadAccounts();
+          this.newAccount();
+          alert('Account updated successfully!');
+        },
+        error: (error) => {
+          console.error('Error updating account:', error);
+          alert('Failed to update account: ' + (error.error?.message || error.message || 'Unknown error'));
+        }
       });
     } else {
-      this.accountService.addAccount(this.selectedAccount).subscribe(() => {
-        this.loadAccounts();
-        this.newAccount();
-        alert('Account added successfully!');
+      this.accountService.addAccount(this.selectedAccount).subscribe({
+        next: () => {
+          this.loadAccounts();
+          this.newAccount();
+          alert('Account added successfully!');
+        },
+        error: (error) => {
+          console.error('Error adding account:', error);
+          alert('Failed to add account: ' + (error.error?.message || error.message || 'Unknown error'));
+        }
       });
     }
   }
