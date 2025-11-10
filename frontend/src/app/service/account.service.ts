@@ -14,22 +14,22 @@ export class AccountService {
   }
 
   public getAccounts(): Observable<Account[]> {
-    return this.http.get<Account[]>(this.apiUrl + '/accounts');
+    return this.http.get<Account[]>(this.apiUrl + '/accounts', { withCredentials: true });
   }
 
   public getAccount(id: number): Observable<Account> {
-    return this.http.get<Account>(this.apiUrl + '/show-account/' + id);
+    return this.http.get<Account>(this.apiUrl + '/show-account/' + id, { withCredentials: true });
   }
 
   public addAccount(account: Account): Observable<Account> {
-    return this.http.post<Account>(this.apiUrl + '/add-account', account);
+    return this.http.post<Account>(this.apiUrl + '/add-account', account, { withCredentials: true });
   }
 
   public updateAccount(id: number, account: Account): Observable<Account> {
-    return this.http.put<Account>(this.apiUrl + '/update-account/' + id, account);
+    return this.http.put<Account>(this.apiUrl + '/update-account/' + id, account, { withCredentials: true });
   }
 
   public deleteAccount(id: number): Observable<void> {
-    return this.http.delete<void>(this.apiUrl + '/delete-account/' + id);
+    return this.http.delete<void>(this.apiUrl + '/delete-account/' + id, { withCredentials: true });
   }
 }

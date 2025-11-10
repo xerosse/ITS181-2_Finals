@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 @RestController
 public class MyController {
     @Autowired
@@ -39,14 +39,44 @@ public class MyController {
     }
 
     @RequestMapping(value="/api/add-dog", method= RequestMethod.POST)
-    public Dog addDogSubmit(@RequestBody Dog dog) {
-        return dogService.addDog(dog);
+    public ResponseEntity<?> addDogSubmit(@RequestBody Dog dog) {
+        try {
+            System.out.println("Received dog: " + dog);
+            
+            // Validate input
+            if (dog.getName() == null || dog.getName().trim().isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ErrorResponse("Dog name is required"));
+            }
+            if (dog.getBreed() == null || dog.getBreed().trim().isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ErrorResponse("Breed is required"));
+            }
+            
+            Dog saved = dogService.addDog(dog);
+            System.out.println("Dog saved successfully: " + saved.getId());
+            return ResponseEntity.ok(saved);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new ErrorResponse("Failed to add dog: " + e.getMessage()));
+        }
     }
 
     @RequestMapping(value="/api/update-dog/{id}", method=RequestMethod.PUT)
-    public Dog updateDog(@PathVariable int id, @RequestBody Dog dog)
-    {
-        return dogService.updateDog(id, dog);
+    public ResponseEntity<?> updateDog(@PathVariable int id, @RequestBody Dog dog) {
+        try {
+            Dog updated = dogService.updateDog(id, dog);
+            if (updated == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ErrorResponse("Dog not found"));
+            }
+            return ResponseEntity.ok(updated);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new ErrorResponse("Failed to update dog: " + e.getMessage()));
+        }
     }
 
     @RequestMapping(value="/api/delete-dog/{id}", method=RequestMethod.DELETE)

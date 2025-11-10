@@ -31,11 +31,12 @@ INSERT IGNORE INTO dog_pictures (dog_id, file_path) VALUES
 -- Insert Accounts (only if they don't exist)
 INSERT IGNORE INTO accounts (id, name, email, role, password) VALUES
 (1, 'Admin User', 'admin@gmail.com', 'ADMIN', 'admin123'),
-(2, 'Emman Guy', 'emmanguy@gmail.com', 'USER', 'emmanguy');
+(2, 'Emman Guy', 'emmanguy@gmail.com', 'USER', 'emmanguy'),
+(3, 'Jane Doe', 'janedoe@gmail.com', 'USER', 'janedoe'),
+(4, 'John Smith', 'johnsmith@gmail.com', 'USER', 'johnsmith');
 
 -- Insert Applications (only if they don't exist)
 INSERT IGNORE INTO applications (id, dog_id, user_id, status, application_date) VALUES
 (1, 11, 2, 'COMPLETE', '2024-03-15'),
 (2, 1, 3, 'ONGOING', '2024-03-20'),
-(3, 4, 4, 'ONGOING', '2024-03-22'),
-(4, 7, 5, 'CANCELLED', '2024-03-10');
+(3, 4, 4, 'ONGOING', '2024-03-22');

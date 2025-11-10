@@ -14,22 +14,22 @@ export class ApplicationService {
   }
 
   public getApplications(): Observable<Application[]> {
-    return this.http.get<Application[]>(this.apiUrl + '/applications');
+    return this.http.get<Application[]>(this.apiUrl + '/applications', { withCredentials: true });
   }
 
   public getApplication(id: number): Observable<Application> {
-    return this.http.get<Application>(this.apiUrl + '/show-application/' + id);
+    return this.http.get<Application>(this.apiUrl + '/show-application/' + id, { withCredentials: true });
   }
 
   public addApplication(application: Application): Observable<Application> {
-    return this.http.post<Application>(this.apiUrl + '/add-application', application);
+    return this.http.post<Application>(this.apiUrl + '/add-application', application, { withCredentials: true });
   }
 
   public updateApplication(id: number, application: Application): Observable<Application> {
-    return this.http.put<Application>(this.apiUrl + '/update-application/' + id, application);
+    return this.http.put<Application>(this.apiUrl + '/update-application/' + id, application, { withCredentials: true });
   }
 
   public deleteApplication(id: number): Observable<void> {
-    return this.http.get<void>(this.apiUrl + '/delete-application/' + id);
+    return this.http.get<void>(this.apiUrl + '/delete-application/' + id, { withCredentials: true });
   }
 }
