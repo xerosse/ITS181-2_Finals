@@ -49,7 +49,7 @@
                 <h3>{{dog.name}}</h3>
                 <p>{{dog.breed}} • {{dog.age}} years • {{dog.sex}}</p>
               </div>
-              <button class="btn-delete" (click)="deleteDog(dog.id); $event.stopPropagation()">🗑️</button>
+              <button class="btn-delete" (click)="deleteDog(dog.id!); $event.stopPropagation()">🗑️</button>
             </div>
           </div>
         </div>
@@ -240,6 +240,7 @@
         <div class="list-section">
           <div class="section-header">
             <h2>Article Records</h2>
+            <button class="btn-add" (click)="newArticle()">+ Add New Article</button>
           </div>
           <div class="record-list">
             <div class="record-item" *ngFor="let article of articles" (click)="selectArticle(article)">
@@ -247,7 +248,7 @@
                 <h3>Article #{{article.id}}</h3>
                 <p>Title: {{article.title}} • Date: {{article.date | date}}</p>
               </div>
-              <button class="btn-delete" (click)="deleteArticle(article.id); $event.stopPropagation()">🗑️</button>
+              <button class="btn-delete" (click)="deleteArticle(article.id!); $event.stopPropagation()">🗑️</button>
             </div>
           </div>
         </div>

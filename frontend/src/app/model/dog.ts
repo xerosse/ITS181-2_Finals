@@ -1,5 +1,5 @@
 export class Dog {
-    id: number = 0;
+    id?: number;
     name: string = ' ';
     image_paths: string[] = [];
 

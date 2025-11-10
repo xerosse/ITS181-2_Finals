@@ -71,7 +71,7 @@ export class AdminComponent implements OnInit {
 
   saveDog() {
     if (this.isEditingDog) {
-      this.dogService.updateDog(this.selectedDog.id, this.selectedDog).subscribe(() => {
+      this.dogService.updateDog(this.selectedDog.id!, this.selectedDog).subscribe(() => {
         this.loadDogs();
         this.newDog();
         alert('Dog updated successfully!');
@@ -202,7 +202,7 @@ export class AdminComponent implements OnInit {
 
   saveArticle() {
     if (this.isEditingArticle) {
-      this.articleService.updateArticle(this.selectedArticle.id, this.selectedArticle).subscribe(() => {
+      this.articleService.updateArticle(this.selectedArticle.id!, this.selectedArticle).subscribe(() => {
         this.loadArticles();
         this.newArticle();
         alert('Article updated successfully!');

@@ -8,6 +8,7 @@ import { Article } from '../model/article';
 })
 export class ArticleService {
   apiUrl: string;
+  private httpOptions = { withCredentials: true };
 
   constructor(private http: HttpClient) {
     this.apiUrl = 'http://localhost:18080/api/articles';
@@ -22,14 +23,14 @@ export class ArticleService {
   }
 
   public addArticle(article: Article): Observable<Article> {
-    return this.http.post<Article>(this.apiUrl, article);
+    return this.http.post<Article>(this.apiUrl, article, this.httpOptions);
   }
 
   public updateArticle(id: number, article: Article): Observable<Article> {
-    return this.http.put<Article>(this.apiUrl + '/' + id, article);
+    return this.http.put<Article>(this.apiUrl + '/' + id, article, this.httpOptions);
   }
 
   public deleteArticle(id: number): Observable<void> {
-    return this.http.delete<void>(this.apiUrl + '/' + id);
+    return this.http.delete<void>(this.apiUrl + '/' + id, this.httpOptions);
   }
 }

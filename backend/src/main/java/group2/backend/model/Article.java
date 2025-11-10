@@ -7,7 +7,7 @@ import java.time.LocalDate;
 @Table(name = "articles")
 public class Article {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(nullable = false, length = 200)
@@ -23,6 +23,17 @@ public class Article {
     @Lob
     @Column(nullable = false)
     private String content;
+
+    // constructors
+    public Article() {
+    }
+
+    public Article(String title, LocalDate date, String image_path, String content) {
+        this.title = title;
+        this.date = date;
+        this.image_path = image_path;
+        this.content = content;
+    }
 
     // getters/setters
     public Long getId() { return id; }

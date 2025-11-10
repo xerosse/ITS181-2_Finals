@@ -1,5 +1,5 @@
 export class Article {
-    id: number = 0;
+    id?: number;
     title: string = '';
     date: Date = new Date();
     image_path: string = '';
