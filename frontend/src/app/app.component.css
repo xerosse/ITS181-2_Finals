@@ -1,5 +1,3 @@
-
-
 * {
   box-sizing: border-box;
 }
@@ -168,6 +166,18 @@ header {
 .footer-links a:hover {
   color: rgba(255, 255, 255, 0.2);
   text-decoration: underline;
+}
+
+/* User Section */
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-name {
+  font-weight: 600;
+  color: var(--color-blue);
 }
 
 /* Responsive Design */

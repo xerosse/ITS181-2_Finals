@@ -33,6 +33,11 @@ public class AccountService implements IAccountService{
     }
 
     public Account addAccount(Account account) {
+        // Check if email already exists
+        Optional<Account> existing = repository.findByEmail(account.getEmail());
+        if (existing.isPresent()) {
+            throw new RuntimeException("Email already in use");
+        }
         return repository.save(account);
     }
 

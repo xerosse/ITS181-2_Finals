@@ -11,6 +11,11 @@
         <h2>Adopt A Pet! 🐾</h2>
         <p class="welcome-text">Welcome back! Please login to your account</p>
         
+        <!-- Error Message -->
+        <div class="error-message" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </div>
+        
         <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
           <!-- Email Input -->
           <div class="form-group">
@@ -64,8 +69,8 @@
           </div>
           
           <!-- Login Button -->
-          <button type="submit" class="login-btn" [disabled]="loginForm.invalid">
-            Login
+          <button type="submit" class="login-btn" [disabled]="loginForm.invalid || isLoading">
+            {{ isLoading ? 'Logging in...' : 'Login' }}
           </button>
           
           <!-- Sign Up Link -->

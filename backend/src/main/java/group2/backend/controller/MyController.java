@@ -10,6 +10,9 @@ import group2.backend.service.IApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -61,8 +64,35 @@ public class MyController {
     }
 
     @RequestMapping(value="/api/add-account", method= RequestMethod.POST)
-    public Account addAccountSubmit(@RequestBody Account account) {
-        return accountService.addAccount(account);
+    public ResponseEntity<?> addAccountSubmit(@RequestBody Account account) {
+        try {
+            // Validate input
+            if (account.getName() == null || account.getName().trim().isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ErrorResponse("Name is required"));
+            }
+            if (account.getEmail() == null || account.getEmail().trim().isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ErrorResponse("Email is required"));
+            }
+            if (account.getPassword() == null || account.getPassword().length() < 6) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ErrorResponse("Password must be at least 6 characters"));
+            }
+            
+            Account saved = accountService.addAccount(account);
+            return ResponseEntity.ok(saved);
+        } catch (RuntimeException e) {
+            if (e.getMessage().contains("Email already in use")) {
+                return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(new ErrorResponse("Email already exists"));
+            }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorResponse("Failed to create account: " + e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new ErrorResponse("Server error: " + e.getMessage()));
+        }
     }
 
     @RequestMapping(value="/api/update-account/{id}", method=RequestMethod.PUT)
@@ -100,4 +130,21 @@ public class MyController {
 
     @RequestMapping(value="/api/delete-application/{id}", method=RequestMethod.DELETE)
     public void deleteApplication(@PathVariable long id) { applicationService.deleteApplication(id); }
+
+    // Error response class
+    static class ErrorResponse {
+        private String message;
+        
+        public ErrorResponse(String message) {
+            this.message = message;
+        }
+        
+        public String getMessage() {
+            return message;
+        }
+        
+        public void setMessage(String message) {
+            this.message = message;
+        }
+    }
 }

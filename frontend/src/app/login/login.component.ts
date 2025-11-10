@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -10,22 +11,43 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
   rememberMe: boolean = false;
+  errorMessage: string = '';
+  isLoading: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   onSubmit() {
     if (this.email && this.password) {
-      console.log('Login attempt:', {
-        email: this.email,
-        password: this.password,
-        rememberMe: this.rememberMe
+      this.isLoading = true;
+      this.errorMessage = '';
+
+      this.authService.login(this.email, this.password).subscribe({
+        next: (response) => {
+          this.isLoading = false;
+          if (response.success) {
+            // Navigate based on role
+            if (response.role === 'ADMIN') {
+              this.router.navigate(['/admin']);
+            } else {
+              this.router.navigate(['/home']);
+            }
+          } else {
+            this.errorMessage = response.message || 'Invalid email or password';
+          }
+        },
+        error: (error) => {
+          this.isLoading = false;
+          if (error.status === 0) {
+            this.errorMessage = 'Cannot connect to server. Please make sure the backend is running.';
+          } else {
+            this.errorMessage = 'Login failed. Please check your credentials and try again.';
+          }
+          console.error('Login error:', error);
+        }
       });
-      
-      // TODO: Add actual authentication logic here
-      // For now, just navigate to home
-      // this.router.navigate(['/home']);
-      
-      alert('Login functionality to be implemented');
     }
   }
 }

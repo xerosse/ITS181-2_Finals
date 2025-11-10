@@ -10,17 +10,26 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        // Allow the Angular frontend to send cookies (session cookie) and call /api/**
         registry.addMapping("/api/**")
-                .allowedOrigins("http://localhost:4200") // your frontend origin - must be exact (no wildcard)
+                .allowedOrigins("http://localhost:4200")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
+                .exposedHeaders("*")
                 .allowCredentials(true)
                 .maxAge(3600);
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/api/**");
+        registry.addInterceptor(new AuthInterceptor())
+                .addPathPatterns("/api/**")
+                .excludePathPatterns(
+                    "/api/login",
+                    "/api/logout", 
+                    "/api/current-user",
+                    "/api/add-account",
+                    "/api/dogs",
+                    "/api/show-dog/**"
+                );
     }
 }

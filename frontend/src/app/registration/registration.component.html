@@ -11,6 +11,16 @@
         <h2>Create Account 🐾</h2>
         <p class="welcome-text">Join us in giving dogs a loving home!</p>
         
+        <!-- Error Message -->
+        <div class="error-message" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </div>
+        
+        <!-- Success Message -->
+        <div class="success-message" *ngIf="successMessage">
+          {{ successMessage }}
+        </div>
+        
         <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
           <!-- Name Input -->
           <div class="form-group">
@@ -111,8 +121,8 @@
           <button 
             type="submit" 
             class="register-btn" 
-            [disabled]="registerForm.invalid || password !== confirmPassword || !agreeToTerms">
-            Create Account
+            [disabled]="registerForm.invalid || password !== confirmPassword || !agreeToTerms || isLoading">
+            {{ isLoading ? 'Creating Account...' : 'Create Account' }}
           </button>
           
           <!-- Sign In Link -->
