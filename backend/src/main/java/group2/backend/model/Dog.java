@@ -31,6 +31,8 @@ public class Dog {
     private Status status;
     private LocalDate arrived_date;
     private LocalDate adopted_date;
+    @Lob
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     // TODO: Expand Enums if we need it :P
