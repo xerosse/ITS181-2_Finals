@@ -3,13 +3,19 @@ package group2.backend.controller;
 import group2.backend.model.Dog;
 import group2.backend.model.Account;
 import group2.backend.model.Application;
+import group2.backend.repository.DogSpecification;
 import group2.backend.service.IDogService;
 import group2.backend.service.IAccountService;
 import group2.backend.service.IApplicationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -28,6 +34,38 @@ public class MyController {
     @RequestMapping("/api/dogs")
     public List<Dog> findDogs() {
         return dogService.getDogs();
+    }
+
+    @GetMapping("/api/dogs/search")
+    public Page<Dog> searchDogs(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String breed,
+            @RequestParam(required = false) Double minAge,
+            @RequestParam(required = false) Double maxAge,
+            @RequestParam(required = false) String sex,
+            @RequestParam(required = false) String size,
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) String arrivedAfter, // yyyy-MM-dd
+            @RequestParam(required = false) String arrivedBefore,
+            Pageable pageable) {
+
+        LocalDate arrivedFrom = null, arrivedTo = null;
+        try {
+            if (arrivedAfter != null) arrivedFrom = LocalDate.parse(arrivedAfter);
+            if (arrivedBefore != null) arrivedTo = LocalDate.parse(arrivedBefore);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("arrivedBefore/After must be yyyy-MM-dd");
+        }
+
+        Specification<Dog> spec = Specification.where(DogSpecification.withNameLike(name))
+                .and(DogSpecification.withBreedLike(breed))
+                .and(DogSpecification.withAgeBetween(minAge, maxAge))
+                .and(DogSpecification.withSex(sex))
+                .and(DogSpecification.withSize(size))
+                .and(DogSpecification.withStatus(status))
+                .and(DogSpecification.withArrivedDateBetween(arrivedFrom, arrivedTo));
+
+        return dogService.search(spec, pageable);
     }
 
     @RequestMapping(value = "/api/show-dog/{id}")
