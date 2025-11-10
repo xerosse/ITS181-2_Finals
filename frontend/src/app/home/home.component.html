@@ -64,30 +64,12 @@
 
     <div class="news-grid">
 
-      <div class="news-card">
-        <img class="news-img" src="assets/vaccine shot dog.png" alt="News Image" />
+      <div class="news-card" *ngFor="let article of latestArticles">
+        <img class="news-img" [src]="article.image_path || 'assets/placeholder.png'" [alt]="article.title" />
         <div class="news-content">
-          <h3>Updates to schedule for vaccine shots</h3>
-          <p>View changes in our veterinary clinic's schedule starting December 2025</p>
-          <button class="btn-sm" routerLink="/news">Read this</button>
-        </div>
-      </div>
-
-      <div class="news-card">
-        <img class="news-img" src="assets/the-importance-of-dog-grooming.jpg" alt="News Image" />
-        <div class="news-content">
-          <h3>Free grooming services on Dec. 1</h3>
-          <p>View details of the 10th anniversary of Animal Clinic</p>
-          <button class="btn-sm" routerLink="/news">Read this</button>
-        </div>
-      </div>
-
-      <div class="news-card">
-        <img class="news-img" src="assets/Boxador.jpg" alt="News Image" style="object-position: 15% 10%;"/>
-        <div class="news-content">
-          <h3>Boxador for adoption</h3>
-          <p>This once abandoned Boxador has been in our care for 2 years and is now fit for adoption. Here's Rocky's story</p>
-          <button class="btn-sm" routerLink="/news">Read this</button>
+          <h3>{{article.title}}</h3>
+          <p>{{ article.content.length > 100 ? (article.content | slice:0:100) + '...' : article.content }}</p>
+          <button class="btn-sm" routerLink="/article/{{article.id}}">Read this</button>
         </div>
       </div>
 

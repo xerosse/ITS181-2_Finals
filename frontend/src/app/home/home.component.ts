@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Dog } from '../model/dog';
 import { DogService } from '../service/dog.service';
+import { Article } from '../model/article';
+import { ArticleService } from '../service/article.service';
 
 @Component({
   selector: 'app-home',
@@ -13,10 +15,16 @@ export class HomeComponent {
   latestArrival: Dog = new Dog();
   latestAdopted: Dog = new Dog();
 
-  constructor(private dogService: DogService) { }
+  latestArticles: Article[] = [];
+
+  constructor(
+    private dogService: DogService,
+    private articleService: ArticleService
+  ) { }
 
   ngOnInit(): void {
     this.getDogs();
+    this.getArticles();
   }
 
   getDogs(): void {
@@ -47,5 +55,17 @@ export class HomeComponent {
       ? current 
       : latest 
     );
+  }
+
+  getArticles(): void {
+    this.articleService.getArticles()
+      .subscribe(articles => {
+        this.latestArticles = this.getLatestArticles(articles);
+        this.latestArticles = this.latestArticles.slice(0, 3);
+      });
+  }
+
+  getLatestArticles(articles: Article[]): Article[] {
+    return articles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   }
 }

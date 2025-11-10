@@ -30,6 +30,6 @@ export class ArticleService {
   }
 
   public deleteArticle(id: number): Observable<void> {
-    return this.http.get<void>(this.apiUrl + '/' + id);
+    return this.http.delete<void>(this.apiUrl + '/' + id);
   }
 }

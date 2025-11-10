@@ -18,7 +18,7 @@ public class Article {
 
     // single image path or url
     @Column(name = "image_path", length = 500)
-    private String imagePath;
+    private String image_path;
 
     @Lob
     @Column(nullable = false)
@@ -34,8 +34,13 @@ public class Article {
     public LocalDate getDate() { return date; }
     public void setDate(LocalDate date) { this.date = date; }
 
-    public String getImagePath() { return imagePath; }
-    public void setImagePath(String imagePath) { this.imagePath = imagePath; }
+    public String getImage_path() {
+        return image_path;
+    }
+
+    public void setImage_path(String image_path) {
+        this.image_path = image_path;
+    }
 
     public String getContent() { return content; }
     public void setContent(String content) { this.content = content; }

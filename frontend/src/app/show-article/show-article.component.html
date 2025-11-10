@@ -1,29 +1,15 @@
-<div class="page-container">
+<div class="page-container" *ngIf="article">
   <div class="content-wrapper">
     <div class="article-section">
         <div class="article-header">
-            <div class="article-title">Title</div>
-            <div class="article-date">Month DD, YYYY</div>
+            <div class="article-title">{{article.title}}</div>
+            <div class="article-date">{{article.date  | date:'MMMM dd, yyyy'}}</div>
         </div>
 
-      <img src="assets/placeholder.png" />
+      <img [src]="article.image_path" />
 
       <div class="article-content">
-        <p>
-            Lorem ipsum dolor sit amet. Sit accusantium reprehenderit et cupiditate libero sit dicta commodi in voluptatibus libero aut minima doloremque in facere Quis? Qui dolore quasi et nisi repellendus id laudantium labore et eveniet modi.
-        </p>
-        <p>
-            Qui nesciunt deserunt vel sequi voluptatem est corporis minus eum quia corporis rem officiis delectus eos consequatur vero. Et quisquam internos rem ipsum molestias et natus consequatur ea doloribus veritatis est odit tempore sed velit beatae qui magni ipsa.
-        </p>
-        <p>
-            Eum quam voluptatem est deleniti voluptas aut deleniti nobis. Sed doloremque debitis eos quibusdam voluptatem ut vero quas sed illum atque et sequi facere!
-        </p>
-        <p>
-            Ut quidem quaerat qui corporis porro qui voluptatem consequatur id perspiciatis error. Qui repellendus totam ut officiis nulla et natus soluta eum impedit maxime cum ullam quibusdam. Sed quae numquam qui pariatur numquam hic molestiae eligendi et mollitia fugiat aut eligendi rerum ea earum ipsum non officiis necessitatibus!
-        </p>
-        <p>
-            Ea sunt vero ab iusto cumque rem illum dolor. Nam voluptate alias eos temporibus earum id ratione architecto et eaque facilis At sunt sequi est incidunt nulla. Est sint fugiat ad facilis quidem id quia cupiditate sed alias iusto!
-        </p>
+        {{article.content}}
       </div>
     </div>
 
