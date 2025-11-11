@@ -59,6 +59,12 @@
         </div>
     </div>
 
-    <button class="adopt-button" *ngIf="dog.status !== 'ADOPTED'" (click)="createApplication()">Adopt Me!</button>
+    <button 
+      class="adopt-button" 
+      *ngIf="dog.status !== 'ADOPTED'" 
+      (click)="createApplication()"
+      [disabled]="authService.isAdmin()">
+      {{ authService.isAdmin() ? 'Admins cannot adopt' : 'Adopt Me!' }}
+    </button>
 
 </div>

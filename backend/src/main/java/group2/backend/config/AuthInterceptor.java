@@ -53,18 +53,19 @@ public class AuthInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        // Account management endpoints (except add-account for registration)
+        // Account management endpoints
+        // Allow users to view their own account, but only admin can view all accounts
         if (uri.matches(".*/api/accounts.*") ||
-                uri.matches(".*/api/show-account/.*") ||
                 uri.matches(".*/api/update-account/.*") ||
                 uri.matches(".*/api/delete-account/.*")) {
             return true;
         }
+        // Note: /api/show-account/{id} is NOT admin-only - users can view their own account
 
-        // Application management endpoints
+        // Application management endpoints - ONLY viewing, updating, and deleting require admin
+        // Users can create applications (add-application is allowed)
         if (uri.matches(".*/api/applications.*") ||
                 uri.matches(".*/api/show-application/.*") ||
-                uri.matches(".*/api/add-application.*") ||
                 uri.matches(".*/api/update-application/.*") ||
                 uri.matches(".*/api/delete-application/.*")) {
             return true;
