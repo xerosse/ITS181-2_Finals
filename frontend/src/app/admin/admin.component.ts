@@ -122,12 +122,18 @@ export class AdminComponent implements OnInit {
   }
 
   deleteDog(id: number) {
-    if (confirm('Are you sure you want to delete this dog?')) {
-      this.dogService.deleteDog(id).subscribe(() => {
+    if (!confirm('Are you sure you want to delete this dog?')) return;
+    this.dogService.deleteDog(id).subscribe({
+      next: () => {
         this.loadDogs();
         alert('Dog deleted successfully!');
-      });
-    }
+      },
+      error: (error) => {
+        console.error('Delete dog failed', error);
+        const msg = error?.error?.message || error?.message || 'Delete failed';
+        alert(msg); // e.g., "Cannot delete dog; it is referenced by other records"
+      }
+    });
   }
 
   addImagePath() {
