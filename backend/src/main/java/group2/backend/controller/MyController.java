@@ -180,7 +180,9 @@ public class MyController {
     }
 
     @RequestMapping(value="/api/delete-application/{id}", method=RequestMethod.DELETE)
-    public void deleteApplication(@PathVariable long id) { applicationService.deleteApplication(id); }
+    public void deleteApplication(@PathVariable long id) { 
+        applicationService.deleteApplication(id); 
+    }
 
     // Error response class
     static class ErrorResponse {

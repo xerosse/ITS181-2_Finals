@@ -31,6 +31,6 @@ export class ApplicationService {
   }
 
   public deleteApplication(id: number): Observable<void> {
-    return this.http.get<void>(this.apiUrl + '/delete-application/' + id, { withCredentials: true });
+    return this.http.delete<void>(this.apiUrl + '/delete-application/' + id, { withCredentials: true });
   }
 }

@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { ShowDogComponent } from './show-dog/show-dog.component';
 import { ShowArticleComponent } from './show-article/show-article.component';
 import { ArticlesPageComponent } from './articles-page/articles-page.component';
+import { AdminGuard } from './guards/admin.guard';
 
 const routes: Routes = [
   { path: 'add-dog', component: AddDogComponent },
@@ -20,7 +21,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationComponent },
-  { path: 'admin', component: AdminComponent },
+  { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
   { path: 'adopt', component: AdoptComponent },
   { path: 'news', component: ArticlesPageComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' }
