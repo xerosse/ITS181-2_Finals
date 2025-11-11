@@ -18,11 +18,13 @@ export class ShowDogComponent implements OnInit {
   dog: Dog = new Dog();
   currentUser: Account = new Account();
   app: Application = new Application();
+  isLoggedIn: boolean = false;
+  isLoadingUser: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
     private dogService: DogService,
-    private authService: AuthService,
+    public authService: AuthService,
     private accountService: AccountService,
     private applicationService: ApplicationService
   ) {}
@@ -37,31 +39,85 @@ export class ShowDogComponent implements OnInit {
         });
       }
     });
+    
     this.authService.currentUser$.subscribe(user => {
-      const userId = user?.id;
-
-      if (userId !== undefined) {
-        // get user account from backend
-        this.accountService.getAccount(userId).subscribe((userAccount) => {
-          this.currentUser = userAccount;
-        });
-      }
+      console.log('Current user from auth service:', user);
       
+      if (user && user.success && user.id) {
+        this.isLoggedIn = true;
+        // get user account from backend
+        this.accountService.getAccount(user.id).subscribe({
+          next: (userAccount) => {
+            console.log('Loaded user account:', userAccount);
+            this.currentUser = userAccount;
+            this.isLoadingUser = false;
+          },
+          error: (err) => {
+            console.error('Error loading user account:', err);
+            this.isLoadingUser = false;
+          }
+        });
+      } else {
+        console.log('No user logged in');
+        this.isLoggedIn = false;
+        this.currentUser = new Account();
+        this.isLoadingUser = false;
+      }
     });
   }
 
-    createApplication() {
-      this.app.dog = this.dog;
-      this.app.user = this.currentUser;
-        
-      this.applicationService.addApplication(this.app).subscribe({
-        next: (response) => {
-          console.log('Application created successfully:', response);
-        },
-        error: (err) => {
-          console.error('Error creating application:', err);
-        }
-      });
+  createApplication() {
+    console.log('createApplication called');
+    console.log('isLoggedIn:', this.isLoggedIn);
+    console.log('currentUser:', this.currentUser);
+    console.log('currentUser.id:', this.currentUser.id);
+    
+    // Check if user is logged in
+    if (!this.isLoggedIn) {
+      alert('Please log in to adopt a dog!');
+      return;
     }
 
+    // Wait for user data to load
+    if (this.isLoadingUser) {
+      alert('Loading user data, please try again in a moment...');
+      return;
+    }
+
+    // Check if we have the user account data
+    if (!this.currentUser || !this.currentUser.id) {
+      alert('Error loading user data. Please refresh and try again.');
+      return;
+    }
+
+    // Check if user is admin
+    if (this.authService.isAdmin()) {
+      alert('Admins cannot adopt dogs. Please use a regular user account.');
+      return;
+    }
+
+    console.log('Creating application for user:', this.currentUser.id, 'and dog:', this.dog.id);
+
+    this.app.dog = this.dog;
+    this.app.user = this.currentUser;
+    this.app.status = 'ONGOING';
+    this.app.application_date = new Date();
+      
+    this.applicationService.addApplication(this.app).subscribe({
+      next: (response) => {
+        console.log('Application created successfully:', response);
+        alert('Application submitted successfully! We will contact you soon.');
+      },
+      error: (err) => {
+        console.error('Error creating application:', err);
+        if (err.status === 401) {
+          alert('Please log in to adopt a dog!');
+        } else if (err.status === 403) {
+          alert('You do not have permission to create applications.');
+        } else {
+          alert('Failed to submit application. Please try again later.');
+        }
+      }
+    });
+  }
 }

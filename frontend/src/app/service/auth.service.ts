@@ -38,10 +38,14 @@ export class AuthService {
   private currentUserSubject = new BehaviorSubject<LoginResponse | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
   private isBrowser: boolean;
+  private isInitialized = false;
 
   constructor(private http: HttpClient) {
     this.isBrowser = typeof window !== 'undefined' && typeof localStorage !== 'undefined';
-    this.checkCurrentUser();
+    // Don't call checkCurrentUser in constructor for SSR compatibility
+    if (this.isBrowser) {
+      this.checkCurrentUser();
+    }
   }
 
   login(email: string, password: string): Observable<LoginResponse> {
@@ -86,26 +90,32 @@ export class AuthService {
   }
 
   checkCurrentUser(): void {
+    if (this.isInitialized) return; // Prevent multiple checks
+    this.isInitialized = true;
+    
+    console.log('Checking current user...');
     this.http.get<LoginResponse>(`${this.apiUrl}/current-user`, { withCredentials: true })
       .subscribe({
         next: (response) => {
+          console.log('Current user response:', response);
           if (response.success) {
             this.currentUserSubject.next(response);
             if (this.isBrowser) {
               localStorage.setItem('currentUser', JSON.stringify(response));
             }
+          } else {
+            console.log('Response not successful, clearing user');
+            this.currentUserSubject.next({ success: false, message: 'Not logged in' });
+            if (this.isBrowser) {
+              localStorage.removeItem('currentUser');
+            }
           }
         },
-        error: () => {
+        error: (err) => {
+          console.error('Error checking current user:', err);
+          this.currentUserSubject.next({ success: false, message: 'Not logged in' });
           if (this.isBrowser) {
-            const stored = localStorage.getItem('currentUser');
-            if (stored) {
-              try {
-                this.currentUserSubject.next(JSON.parse(stored));
-              } catch (e) {
-                localStorage.removeItem('currentUser');
-              }
-            }
+            localStorage.removeItem('currentUser');
           }
         }
       });
