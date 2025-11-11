@@ -16,11 +16,11 @@ export class DogService {
   }
 
   public getDogs(): Observable<Dog[]> {
-    return this.http.get<Dog[]>(this.apiUrl + '/dogs', { withCredentials: true });
+    return this.http.get<Dog[]>(this.apiUrl + '/dogs', this.httpOptions);
   }
 
   public getDog(id: number): Observable<Dog> {
-    return this.http.get<Dog>(this.apiUrl + '/show-dog/' + id, { withCredentials: true });
+    return this.http.get<Dog>(this.apiUrl + '/show-dog/' + id, this.httpOptions);
   }
 
   public addDog(dog: Dog): Observable<Dog> {      
@@ -36,10 +36,10 @@ export class DogService {
     if (!Array.isArray(dog.image_paths)) {
       dog.image_paths = [dog.image_paths]
     }
-    return this.http.put<Dog>(this.apiUrl + '/update-dog/' + id, dog);
+    return this.http.put<Dog>(this.apiUrl + '/update-dog/' + id, dog, this.httpOptions);
   }
 
   public deleteDog(id: number): Observable<void> {
-    return this.http.delete<void>(this.apiUrl + '/delete-dog/' + id);
+    return this.http.delete<void>(this.apiUrl + '/delete-dog/' + id, this.httpOptions);
   }
 }

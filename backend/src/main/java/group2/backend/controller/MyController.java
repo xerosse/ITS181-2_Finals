@@ -8,6 +8,8 @@ import group2.backend.service.IAccountService;
 import group2.backend.service.IApplicationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.http.HttpStatus;
@@ -80,7 +82,26 @@ public class MyController {
     }
 
     @RequestMapping(value="/api/delete-dog/{id}", method=RequestMethod.DELETE)
-    public void deleteDog(@PathVariable long id) { dogService.deleteDog(id); }
+    public ResponseEntity<?> deleteDog(@PathVariable long id) {
+        try {
+            Dog dog = dogService.getDog(id);
+            if (dog == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ErrorResponse("Dog not found: " + id));
+            }
+            dogService.deleteDog(id);
+            return ResponseEntity.noContent().build();
+        } catch (DataIntegrityViolationException ex) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(new ErrorResponse("Cannot delete dog, it has an ongoing application"));
+        } catch (EmptyResultDataAccessException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponse("Dog not found: " + id));
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new ErrorResponse("Server error while deleting dog"));
+        }
+    }
 
     // Account CRUD requests
     @RequestMapping("/api/accounts")
