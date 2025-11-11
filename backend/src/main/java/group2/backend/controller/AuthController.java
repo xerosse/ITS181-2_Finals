@@ -7,7 +7,6 @@ import group2.backend.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -53,13 +52,6 @@ public class AuthController {
         session.setAttribute(SESSION_USER_ID, account.getId());
         session.setAttribute(SESSION_ROLE, account.getRole().name());
         session.setMaxInactiveInterval(86400); // 24 hours
-
-        // Add session ID to response cookies
-        Cookie cookie = new Cookie("JSESSIONID", session.getId());
-        cookie.setHttpOnly(true);
-        cookie.setPath("/");
-        cookie.setMaxAge(86400); // 24 hours
-        response.addCookie(cookie);
 
         System.out.println("=== Login Successful ===");
         System.out.println("Session ID: " + session.getId());
