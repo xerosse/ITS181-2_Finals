@@ -43,8 +43,11 @@ export class ShowDogComponent implements OnInit {
     this.authService.currentUser$.subscribe(user => {
       console.log('Current user from auth service:', user);
       
-      if (user && user.success && user.id) {
+      // Check if user is actually logged in
+      if (user && user.success === true && user.id) {
         this.isLoggedIn = true;
+        console.log('User is logged in, fetching account for ID:', user.id);
+        
         // get user account from backend
         this.accountService.getAccount(user.id).subscribe({
           next: (userAccount) => {
@@ -54,11 +57,14 @@ export class ShowDogComponent implements OnInit {
           },
           error: (err) => {
             console.error('Error loading user account:', err);
+            console.error('User might not be authenticated. Clearing login status.');
+            this.isLoggedIn = false;
+            this.currentUser = new Account();
             this.isLoadingUser = false;
           }
         });
       } else {
-        console.log('No user logged in');
+        console.log('No user logged in or login failed');
         this.isLoggedIn = false;
         this.currentUser = new Account();
         this.isLoadingUser = false;
