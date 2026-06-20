@@ -25,12 +25,12 @@ export class AdminGuard implements CanActivate {
         console.log('AdminGuard checking user:', user);
         
         // Allow access if user is admin
-        if (user.success && user.role === 'ADMIN') {
+        if (user?.success && user?.role === 'ADMIN') {
           return true;
         }
         
         // If not logged in, redirect to login
-        if (!user.success) {
+        if (user?.success) {
           alert('You must be logged in as an admin to access this page.');
           return this.router.createUrlTree(['/login']);
         }
