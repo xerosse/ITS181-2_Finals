@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Application } from '../model/application';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class ApplicationService {
   private httpOptions = { withCredentials: true };
 
   constructor(private http: HttpClient) {
-    this.apiUrl = 'http://localhost:18080/api';
+    this.apiUrl = environment.apiUrl;
   }
 
   public getApplications(): Observable<Application[]> {

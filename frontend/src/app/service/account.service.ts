@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Account } from '../model/account';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class AccountService {
   apiUrl: string;
 
   constructor(private http: HttpClient) {
-    this.apiUrl = 'http://localhost:18080/api';
+    this.apiUrl = environment.apiUrl;
   }
 
   public getAccounts(): Observable<Account[]> {

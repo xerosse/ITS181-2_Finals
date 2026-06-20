@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, of } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
+import { environment } from '../../environments/environment.prod';
 
 export interface LoginResponse {
   success: boolean;
@@ -34,7 +35,7 @@ export interface Application {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:18080/api';
+  private apiUrl = environment.apiUrl;
   private currentUserSubject = new BehaviorSubject<LoginResponse | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
   private isBrowser: boolean;

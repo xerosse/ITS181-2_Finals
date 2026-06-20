@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Article } from '../model/article';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class ArticleService {
   private httpOptions = { withCredentials: true };
 
   constructor(private http: HttpClient) {
-    this.apiUrl = 'http://localhost:18080/api/articles';
+    this.apiUrl = environment.apiUrl + '/articles';
   }
 
   public getArticles(): Observable<Article[]> {

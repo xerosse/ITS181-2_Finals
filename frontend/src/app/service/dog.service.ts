@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Dog } from '../model/dog';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class DogService {
   private httpOptions = { withCredentials: true };
 
   constructor(private http: HttpClient) {
-    this.apiUrl = 'http://localhost:18080/api';
+    this.apiUrl = environment.apiUrl;
   }
 
   public getDogs(): Observable<Dog[]> {
